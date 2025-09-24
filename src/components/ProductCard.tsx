@@ -21,35 +21,37 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <Card className="flex flex-col shadow-lg hover:shadow-2xl transition-shadow duration-300 group border-0 overflow-hidden relative">
-      <div className="relative">
+    <Card className="flex flex-col shadow-lg hover:shadow-2xl transition-shadow duration-300 group border-0 overflow-hidden relative h-full">
+      <div className="relative h-32 sm:h-40 lg:h-48">
         <img
           src={product.image}
           alt={product.name}
-          className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
         <Button
           size="icon"
           variant="ghost"
-          className="absolute top-2 right-2 bg-white/80 hover:bg-luxury-gold/80 text-luxury-gold"
+          className="absolute top-1 right-1 bg-white/80 hover:bg-luxury-gold/80 text-luxury-gold h-6 w-6 sm:h-8 sm:w-8"
         >
-          <Heart className="w-5 h-5" />
+          <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
         </Button>
       </div>
-      <CardContent className="flex-1">
-        <h2 className="text-lg font-semibold text-primary group-hover:text-luxury-gold transition-colors">
+      <CardContent className="flex-1 p-2 sm:p-3 lg:p-4">
+        <h2 className="text-xs sm:text-sm lg:text-base font-semibold text-primary group-hover:text-luxury-gold transition-colors line-clamp-2 mb-1 sm:mb-2">
           {product.name}
         </h2>
-        <p className="text-primary font-bold">₹{product.price}</p>
+        <p className="text-sm sm:text-base lg:text-lg text-primary font-bold">₹{product.price}</p>
       </CardContent>
-      <CardFooter className="flex gap-2">
-        <Link to={`/products/${product.id}`}>
-          <Button variant="outline">View Details</Button>
+      <CardFooter className="flex flex-col sm:flex-row gap-1 sm:gap-2 p-2 sm:p-3 lg:p-4 pt-0">
+        <Link to={`/products/${product.id}`} className="w-full sm:w-auto">
+          <Button variant="outline" className="w-full text-xs sm:text-sm py-1.5 sm:py-2">
+            View Details
+          </Button>
         </Link>
         <Button
           onClick={handleAddToCart}
           variant={added ? "secondary" : "luxury"}
-          className={added ? "bg-green-500 text-white" : ""}
+          className={`w-full text-xs sm:text-sm py-1.5 sm:py-2 ${added ? "bg-green-500 text-white" : ""}`}
           disabled={added}
         >
           {added ? "Added!" : "Add to Cart"}

@@ -50,108 +50,110 @@ export default function MyOrders() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-luxury-gold/10 via-white to-luxury-rose-gold/10 py-8">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-luxury mb-4">My Orders</h1>
-          <p className="text-gray-600 text-lg">View and track all your placed orders</p>
-        </div>
+    <div className="flex flex-col w-full max-w-full overflow-x-hidden">
+      <div className="flex-1 py-4 sm:py-6 lg:py-8 bg-gradient-to-br from-luxury-gold/10 via-white to-luxury-rose-gold/10">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
+          <div className="text-center mb-4 sm:mb-6 lg:mb-8">
+            <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-luxury mb-2 sm:mb-3">My Orders</h1>
+            <p className="text-xs sm:text-sm lg:text-base text-gray-600">View and track all your placed orders</p>
+          </div>
 
-        <Card className="w-full max-w-md mx-auto mb-8 shadow-luxury">
-          <CardHeader>
-            <CardTitle className="text-luxury flex items-center gap-2">
-              <Search className="w-5 h-5" />
-              Search Orders
-            </CardTitle>
-            <CardDescription>Enter your User ID to view your order history</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="user_id" className="text-luxury font-semibold">User ID</Label>
-                <Input
-                  id="user_id"
-                  value={userId}
-                  onChange={(e) => setUserId(e.target.value)}
-                  placeholder="Enter your User ID"
-                  className="border-luxury focus:border-luxury-gold focus:ring-luxury-gold"
-                />
+          <Card className="w-full max-w-sm sm:max-w-md mx-auto mb-4 sm:mb-6 shadow-luxury">
+            <CardHeader>
+              <CardTitle className="text-luxury flex items-center gap-2 text-sm sm:text-base">
+                <Search className="w-4 h-4 sm:w-5 sm:h-5" />
+                Search Orders
+              </CardTitle>
+              <CardDescription className="text-xs sm:text-sm">Enter your User ID to view your order history</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3 sm:space-y-4">
+                <div>
+                  <Label htmlFor="user_id" className="text-luxury font-semibold text-xs sm:text-sm">User ID</Label>
+                  <Input
+                    id="user_id"
+                    value={userId}
+                    onChange={(e) => setUserId(e.target.value)}
+                    placeholder="Enter your User ID"
+                    className="border-luxury focus:border-luxury-gold focus:ring-luxury-gold text-xs sm:text-sm"
+                  />
+                </div>
+                <Button
+                  onClick={handleFetchOrders}
+                  disabled={loading}
+                  className="w-full bg-luxury-gold hover:bg-luxury-rose-gold text-white font-semibold text-xs sm:text-sm py-2 sm:py-2.5"
+                >
+                  {loading ? (
+                    <>
+                      <RefreshCw className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 animate-spin" />
+                      Fetching...
+                    </>
+                  ) : (
+                    <>
+                      <Package className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                      View My Orders
+                    </>
+                  )}
+                </Button>
+                {error && <p className="text-red-500 text-xs sm:text-sm">{error}</p>}
               </div>
-              <Button
-                onClick={handleFetchOrders}
-                disabled={loading}
-                className="w-full bg-luxury-gold hover:bg-luxury-rose-gold text-white font-semibold"
-              >
-                {loading ? (
-                  <>
-                    <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                    Fetching...
-                  </>
-                ) : (
-                  <>
-                    <Package className="w-4 h-4 mr-2" />
-                    View My Orders
-                  </>
-                )}
-              </Button>
-              {error && <p className="text-red-500 text-sm">{error}</p>}
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        {orders.length > 0 && (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold text-luxury mb-2">Your Orders</h2>
-              <p className="text-gray-600">Found {orders.length} order(s)</p>
-            </div>
+          {orders.length > 0 && (
+            <div className="space-y-4 sm:space-y-6">
+              <div className="text-center">
+                <h2 className="text-base sm:text-lg lg:text-xl font-bold text-luxury mb-1 sm:mb-2">Your Orders</h2>
+                <p className="text-xs sm:text-sm text-gray-600">Found {orders.length} order(s)</p>
+              </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {orders.map((order) => (
-                <Card key={order.order_id} className="shadow-elegant hover:shadow-luxury transition-shadow duration-300">
-                  <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <CardTitle className="text-lg text-luxury">Order #{order.order_id}</CardTitle>
-                      <Badge className={getStatusColor(order.status)}>
-                        {order.status}
-                      </Badge>
-                    </div>
-                    <CardDescription>
-                      Product ID: {order.product_id}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Quantity:</span>
-                        <span className="font-semibold">{order.quantity}</span>
+              <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {orders.map((order) => (
+                  <Card key={order.order_id} className="shadow-elegant hover:shadow-luxury transition-shadow duration-300">
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <CardTitle className="text-sm sm:text-base text-luxury">Order #{order.order_id}</CardTitle>
+                        <Badge className={`${getStatusColor(order.status)} text-xs sm:text-sm`}>
+                          {order.status}
+                        </Badge>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Order Date:</span>
-                        <span className="font-semibold">
-                          {new Date(order.order_date).toLocaleDateString()}
-                        </span>
+                      <CardDescription className="text-xs sm:text-sm">
+                        Product ID: {order.product_id}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-2 sm:space-y-3">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600 text-xs sm:text-sm">Quantity:</span>
+                          <span className="font-semibold text-xs sm:text-sm">{order.quantity}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600 text-xs sm:text-sm">Order Date:</span>
+                          <span className="font-semibold text-xs sm:text-sm">
+                            {new Date(order.order_date).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <Separator />
+                        <div className="text-center">
+                          <p className="text-xs sm:text-sm text-gray-500">Order Status</p>
+                          <p className="font-bold text-luxury text-xs sm:text-sm">{order.status.toUpperCase()}</p>
+                        </div>
                       </div>
-                      <Separator />
-                      <div className="text-center">
-                        <p className="text-sm text-gray-500">Order Status</p>
-                        <p className="font-bold text-luxury">{order.status.toUpperCase()}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {orders.length === 0 && !loading && userId && (
-          <div className="text-center py-12">
-            <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-500 mb-2">No Orders Found</h3>
-            <p className="text-gray-400">No orders found for User ID: {userId}</p>
-          </div>
-        )}
+          {orders.length === 0 && !loading && userId && (
+            <div className="text-center py-8 sm:py-12">
+              <Package className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-3 sm:mb-4" />
+              <h3 className="text-base sm:text-lg font-semibold text-gray-500 mb-1 sm:mb-2">No Orders Found</h3>
+              <p className="text-xs sm:text-sm text-gray-400">No orders found for User ID: {userId}</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="w-full max-w-full overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-hero overflow-hidden">
         <div className="absolute inset-0">

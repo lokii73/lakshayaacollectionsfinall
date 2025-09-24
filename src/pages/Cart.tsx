@@ -8,51 +8,59 @@ const Cart = () => {
   const { cart, removeFromCart, getTotalPrice } = useCart();
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="flex items-center gap-2 mb-6">
-        <ShoppingCart className="w-8 h-8 text-primary" />
-        <h1 className="text-3xl font-bold">Your Cart</h1>
-      </div>
-      {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <>
-          <div className="space-y-4">
-            {cart.map((item) => (
-              <Card key={item.id} className="flex flex-col md:flex-row items-center shadow">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="h-24 w-24 object-cover rounded m-2"
-                />
-                <CardContent className="flex-1">
-                  <h2 className="font-semibold">{item.name}</h2>
-                  <p>Price: ₹{item.price}</p>
-                  <p>Quantity: {item.quantity}</p>
-                </CardContent>
-                <CardFooter>
-                  <Button
-                    variant="destructive"
-                    onClick={() => removeFromCart(item.id)}
-                  >
-                    Remove
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-            <div className="text-right text-xl font-bold mt-4">
-              Total Price: ₹{getTotalPrice()}
+    <div className="bg-gray-50 flex flex-col w-full max-w-full overflow-x-hidden">
+      <div className="flex-1 py-4 sm:py-6 lg:py-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
+          <div className="flex items-center gap-2 mb-4 sm:mb-6">
+            <ShoppingCart className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Your Cart</h1>
+          </div>
+          {cart.length === 0 ? (
+            <div className="text-center py-8 sm:py-12">
+              <p className="text-base sm:text-lg text-muted-foreground">Your cart is empty.</p>
             </div>
-          </div>
-          <div className="flex justify-end mt-6">
-            <Link to="/checkout">
-              <Button size="lg" className="bg-luxury-gold text-white hover:bg-primary">
-                Proceed to Checkout
-              </Button>
-            </Link>
-          </div>
-        </>
-      )}
+          ) : (
+            <>
+              <div className="space-y-3 sm:space-y-4">
+                {cart.map((item) => (
+                  <Card key={item.id} className="flex flex-col sm:flex-row items-center shadow-lg">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="h-20 w-20 sm:h-24 sm:w-24 object-cover rounded m-3 sm:m-4"
+                    />
+                    <CardContent className="flex-1 p-3 sm:p-4">
+                      <h2 className="font-semibold text-sm sm:text-base">{item.name}</h2>
+                      <p className="text-xs sm:text-sm text-muted-foreground">Price: ₹{item.price}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">Quantity: {item.quantity}</p>
+                    </CardContent>
+                    <CardFooter className="p-3 sm:p-4">
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => removeFromCart(item.id)}
+                        className="text-xs sm:text-sm"
+                      >
+                        Remove
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+                <div className="text-right text-lg sm:text-xl font-bold mt-4 sm:mt-6 p-3 sm:p-4 bg-white rounded-lg shadow">
+                  Total Price: ₹{getTotalPrice()}
+                </div>
+              </div>
+              <div className="flex justify-center sm:justify-end mt-4 sm:mt-6">
+                <Link to="/checkout">
+                  <Button size="lg" className="bg-luxury-gold text-white hover:bg-primary w-full sm:w-auto text-sm sm:text-base py-2 sm:py-3 px-4 sm:px-6">
+                    Proceed to Checkout
+                  </Button>
+                </Link>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
