@@ -13,6 +13,7 @@ export default function RegisterUser() {
     email: "",
     phone: "",
     address: "",
+    password: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -105,6 +106,19 @@ export default function RegisterUser() {
               required
               className="border-luxury focus:border-luxury-gold focus:ring-luxury-gold"
               placeholder="Enter your full address"
+            />
+          </div>
+          <div>
+            <Label htmlFor="password" className="text-luxury font-semibold">Password</Label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              value={form.password}
+              onChange={handleChange}
+              required
+              className="border-luxury focus:border-luxury-gold focus:ring-luxury-gold"
+              placeholder="Enter your password"
             />
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}

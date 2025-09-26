@@ -43,25 +43,25 @@ const Contact = () => {
               Get in touch with us using the details below.
             </p>
           </div>
-          <div className="space-y-3 sm:space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
             {contactInfo.map((contact, index) => (
-              <Card key={index} className="shadow-soft border-0">
-                <CardContent className="p-3 sm:p-4 lg:p-6">
-                  <div className="flex items-start space-x-3 sm:space-x-4">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-luxury-gold rounded-full flex items-center justify-center text-white flex-shrink-0">
+              <Card key={index} className="shadow-soft border-0 hover:shadow-luxury transition-shadow duration-300">
+                <CardContent className="p-4 sm:p-6 text-center">
+                  <div className="flex flex-col items-center space-y-3">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-luxury-gold rounded-full flex items-center justify-center text-white">
                       {contact.icon}
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-luxury font-semibold text-primary mb-1 text-sm sm:text-base">
+                    <div>
+                      <h3 className="font-luxury font-semibold text-primary mb-2 text-sm sm:text-base">
                         {contact.title}
                       </h3>
-                      <p className="text-muted-foreground mb-2 text-xs sm:text-sm">
+                      <p className="text-muted-foreground mb-3 text-xs sm:text-sm">
                         {contact.info}
                       </p>
                       {contact.action && (
                         <a
                           href={contact.href}
-                          className="text-luxury-gold hover:underline font-medium text-xs sm:text-sm"
+                          className="inline-block text-luxury-gold hover:underline font-medium text-xs sm:text-sm"
                         >
                           {contact.action}
                         </a>

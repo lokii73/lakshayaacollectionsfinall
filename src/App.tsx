@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
 import { CartProvider, useCart } from "./context/CartContext";
 import { Button } from "@/components/ui/button";
+import { Toaster } from "@/components/ui/toaster";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import ProductDetails from "./pages/ProductDetails";
@@ -11,8 +12,8 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Checkout from "./pages/Checkout";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 import MyOrders from "./pages/MyOrders";
-import LeftSidebar from "./components/LeftSidebar";
 import Footer from "./components/Footer";
 import { Home as HomeIcon, ShoppingBag, Info, Mail, User, Package, Menu, X } from "lucide-react";
 
@@ -29,10 +30,11 @@ function NavBar() {
     { to: "/contact", label: "Contact", icon: <Mail className="w-4 h-4 sm:w-5 sm:h-5" /> },
   ];
 
-  // Right corner items (Register and My Orders)
-  const rightNavItems = [
-    { to: "/register", label: "Register", icon: <User className="w-4 h-4 sm:w-5 sm:h-5" /> },
+  // User action items (My Orders, Cart, Login)
+  const userNavItems = [
     { to: "/my-orders", label: "My Orders", icon: <Package className="w-4 h-4 sm:w-5 sm:h-5" /> },
+    { to: "/cart", label: "Cart", icon: <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />, badge: cart.length },
+    { to: "/login", label: "Login", icon: <User className="w-4 h-4 sm:w-5 sm:h-5" /> },
   ];
 
   return (
@@ -59,7 +61,7 @@ function NavBar() {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
+            <div className="hidden md:flex items-center space-x-4 lg:space-x-8 flex-1 justify-center">
               {mainNavItems.map((item) => (
                 <Link
                   key={item.to}
@@ -76,9 +78,12 @@ function NavBar() {
               ))}
             </div>
 
-            {/* Desktop Right Navigation */}
+            {/* Separator */}
+            <div className="hidden md:block w-px h-6 bg-border mx-4"></div>
+
+            {/* Desktop User Navigation - Right Corner */}
             <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
-              {rightNavItems.map((item) => (
+              {userNavItems.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
@@ -88,7 +93,14 @@ function NavBar() {
                       : "hover:bg-primary/10 text-primary hover:text-primary"
                   }`}
                 >
-                  {item.icon}
+                  <div className="relative">
+                    {item.icon}
+                    {item.badge > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1 min-w-[18px] h-[18px] flex items-center justify-center">
+                        {item.badge}
+                      </span>
+                    )}
+                  </div>
                   <span className="text-xs sm:text-sm lg:text-base">{item.label}</span>
                 </Link>
               ))}
@@ -130,7 +142,7 @@ function NavBar() {
                   {item.label}
                 </Link>
               ))}
-              {rightNavItems.map((item) => (
+              {userNavItems.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
@@ -157,8 +169,7 @@ function App() {
     <CartProvider>
       <Router>
         <div className="min-h-screen bg-gray-50 flex flex-col w-full max-w-full overflow-x-hidden">
-          <LeftSidebar />
-          <div className="xl:ml-16 flex-1 flex flex-col w-full max-w-full">
+          <div className="flex-1 flex flex-col w-full max-w-full">
             <NavBar />
             <main className="flex-1 bg-gray-50 w-full max-w-full">
               <Routes>
@@ -171,10 +182,12 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
             <Footer className="mt-auto" />
+            <Toaster />
           </div>
         </div>
       </Router>

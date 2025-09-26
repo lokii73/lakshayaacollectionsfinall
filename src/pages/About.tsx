@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Heart, Users, Sparkles, Target, Eye, Info } from "lucide-react";
+import { Link } from "react-router-dom";
 import modelJewelry from "@/assets/model-jewelry.jpg";
 import jewelryCollection from "@/assets/jewelry-collection.jpg";
 
@@ -28,9 +29,6 @@ const About = () => {
     }
   ];
 
-  const team = [
-    
-  ];
 
   return (
     <div className="w-full max-w-full overflow-x-hidden">
@@ -157,62 +155,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 bg-luxury-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-luxury font-bold text-primary mb-4">
-             
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-             
-            </p>
-          </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {team.map((member, index) => (
-              <Card key={index} className="shadow-soft border-0 overflow-hidden">
-                <CardContent className="p-0">
-                  <div className="aspect-square overflow-hidden">
-                    <img 
-                      src={member.image} 
-                      alt={member.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-6 text-center">
-                    <h3 className="text-xl font-luxury font-semibold text-primary mb-2">
-                      {member.name}
-                    </h3>
-                    <p className="text-luxury-gold font-medium mb-3">
-                      {member.role}
-                    </p>
-                    <p className="text-muted-foreground">
-                      {member.description}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-primary">
-       
-      </section>
-
-      {/* About Us Section */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto flex flex-col items-center">
-          <Info className="w-12 h-12 text-primary mb-4" />
-          <h1 className="text-3xl font-bold mb-4">About Us</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl text-center">
-            Lakshayaa Collections brings you the finest handcrafted jewellery, blending tradition with modern elegance. Our mission is to make luxury accessible for everyone.
-          </p>
-        </div>
-      </section>
     </div>
   );
 };

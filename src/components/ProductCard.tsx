@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Product } from "../context/CartContext";
 import { useCart } from "../context/CartContext";
-import { Heart } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 type ProductCardProps = {
   product: Product;
@@ -12,11 +12,16 @@ type ProductCardProps = {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
+  const { toast } = useToast();
   const [added, setAdded] = useState(false);
 
   const handleAddToCart = () => {
     addToCart(product);
     setAdded(true);
+    toast({
+      title: "Added to Cart",
+      description: product.name,
+    });
     setTimeout(() => setAdded(false), 1000);
   };
 
@@ -28,13 +33,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
           alt={product.name}
           className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
-        <Button
-          size="icon"
-          variant="ghost"
-          className="absolute top-1 right-1 bg-white/80 hover:bg-luxury-gold/80 text-luxury-gold h-6 w-6 sm:h-8 sm:w-8"
-        >
-          <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
-        </Button>
       </div>
       <CardContent className="flex-1 p-2 sm:p-3 lg:p-4">
         <h2 className="text-xs sm:text-sm lg:text-base font-semibold text-primary group-hover:text-luxury-gold transition-colors line-clamp-2 mb-1 sm:mb-2">

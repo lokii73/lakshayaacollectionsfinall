@@ -1,14 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, UserPlus } from "lucide-react";
-import { useCart } from "../context/CartContext";
+import { User } from "lucide-react";
 
 const LeftSidebar = () => {
   const location = useLocation();
-  const { cart } = useCart();
 
   const sidebarItems = [
-    { to: "/cart", icon: <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />, label: "Cart", badge: cart.length },
-    { to: "/register", icon: <UserPlus className="h-4 w-4 sm:h-5 sm:w-5" />, label: "Register" },
+    { to: "/login", icon: <User className="h-4 w-4 sm:h-5 sm:w-5" />, label: "Login" },
   ];
 
   return (
@@ -27,11 +24,6 @@ const LeftSidebar = () => {
             title={item.label}
           >
             {item.icon}
-            {item.badge > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1 min-w-[14px] sm:min-w-[16px] h-3 sm:h-4 flex items-center justify-center text-xs">
-                {item.badge}
-              </span>
-            )}
           </Link>
         ))}
       </div>
@@ -53,11 +45,6 @@ const LeftSidebar = () => {
                 location.pathname === item.to ? "text-luxury-gold" : ""
               }`}>
                 {item.icon}
-                {item.badge > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-0.5 sm:px-1 min-w-[14px] h-3 sm:h-4 flex items-center justify-center">
-                    {item.badge}
-                  </span>
-                )}
               </div>
               <span className="text-xs font-medium mt-0.5">{item.label}</span>
             </Link>

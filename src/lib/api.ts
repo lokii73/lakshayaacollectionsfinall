@@ -10,6 +10,20 @@ export async function registerUser(user: User) {
   return res.json();
 }
 
+// Login a user
+export async function loginUser(email: string, password: string): Promise<User> {
+  // Simulate login by fetching user or mock
+  const res = await fetch(`/api/users/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+  if (!res.ok) {
+    throw new Error("Invalid credentials");
+  }
+  return res.json();
+}
+
 // Place an order
 export async function placeOrder(order: Order) {
   const res = await fetch("/api/orders", {

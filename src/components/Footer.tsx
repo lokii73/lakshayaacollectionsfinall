@@ -13,17 +13,6 @@ const Footer = ({ className = "" }: FooterProps) => {
     { name: "Contact Us", path: "/contact" },
   ];
 
-  
-
-  const policies = [
-    { name: "Privacy Policy", path: "/privacy" },
-    { name: "Terms of Service", path: "/terms" },
-    { name: "Shipping Policy", path: "/shipping" },
-    { name: "Return Policy", path: "/returns" },
-  ];
-
-
-
   return (
     <footer className={`bg-primary text-white ${className}`}>
       {/* Main Footer - Optimized for mobile */}
@@ -84,8 +73,6 @@ const Footer = ({ className = "" }: FooterProps) => {
             </ul>
           </div>
 
-
-
           {/* Contact Info */}
           <div>
             <h3 className="text-sm sm:text-base font-luxury font-semibold mb-3 sm:mb-4">Contact Info</h3>
@@ -116,8 +103,6 @@ const Footer = ({ className = "" }: FooterProps) => {
         </div>
       </div>
 
-
-
       {/* Bottom Footer */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
@@ -129,17 +114,6 @@ const Footer = ({ className = "" }: FooterProps) => {
               <span>Made with</span>
               <Heart className="w-3 h-3 text-luxury-gold fill-current" />
               <span>for jewellery lovers</span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 text-xs">
-              {policies.map((policy) => (
-                <Link
-                  key={policy.name}
-                  to={policy.path}
-                  className="text-gray-300 hover:text-luxury-gold transition-colors touch-manipulation py-0.5"
-                >
-                  {policy.name}
-                </Link>
-              ))}
             </div>
           </div>
         </div>

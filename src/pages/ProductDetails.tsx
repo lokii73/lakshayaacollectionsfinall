@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { useCart } from "../context/CartContext";
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import products from "../data/products";
@@ -7,7 +9,19 @@ import products from "../data/products";
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { addToCart } = useCart();
+  const { toast } = useToast();
+  const [added, setAdded] = useState(false);
   const product = products.find((p) => p.id === id);
+
+  const handleAddToCart = () => {
+    addToCart(product!);
+    setAdded(true);
+    toast({
+      title: "Added to Cart",
+      description: product?.name,
+    });
+    setTimeout(() => setAdded(false), 1000);
+  };
 
   if (!product) {
     return (
@@ -56,11 +70,13 @@ const ProductDetails = () => {
 
                 <CardFooter className="flex flex-col sm:flex-row gap-2 sm:gap-3 p-0">
                   <Button
-                    onClick={() => addToCart(product)}
-                    className="w-full sm:flex-1 text-xs sm:text-sm py-2.5 sm:py-3 text-base sm:text-lg font-semibold"
+                    onClick={handleAddToCart}
+                    variant={added ? "secondary" : "default"}
+                    className={`w-full sm:flex-1 text-xs sm:text-sm py-2.5 sm:py-3 text-base sm:text-lg font-semibold ${added ? "bg-green-500 text-white" : ""}`}
+                    disabled={added}
                     size="lg"
                   >
-                    Add to Cart
+                    {added ? "Added!" : "Add to Cart"}
                   </Button>
                   <Button
                     variant="outline"
